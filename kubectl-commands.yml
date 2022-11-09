@@ -100,3 +100,5 @@ git config --global alias.co "checkout"
 ### .gitignore
 create .gitignore and add the file that you don't want git to track
 
+If your  commit message has an error and you want to correct it do 
+git commit -m "first commit" --amend : 
