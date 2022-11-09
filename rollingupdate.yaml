@@ -1,0 +1,28 @@
+#Deployment RollingUpdate
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mavenappdeployment
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: mavenapp
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  minReadySeconds: 30
+    type: Recreate
+  template:
+    metadata:
+      name: mavenapppod
+      labels:
+        app: mavenapp
+    spec:
+      containers:
+      - name: mavenappcontainer
+        image: bricelab21/alybibaf:1
+        ports:
+        - containerPort: 8080

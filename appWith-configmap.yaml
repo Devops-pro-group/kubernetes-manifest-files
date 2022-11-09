@@ -1,0 +1,92 @@
+### In this deployement we will refere our credentials to configmap and secrets that we will also deploy
+### as objects inside the cluster
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: springapp
+spec:
+  selector:
+    matchLabels:
+      app: springapp
+  replicas: 2
+  template:
+    metadata:
+      name: springapp
+      labels:
+        app: springapp
+    spec:
+      containers:
+        - name: springapp
+          image: bricelab21/alybibaf:1
+          ports:
+          - containerPort: 8080
+          env:
+          - name: MONGO_DB_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-configmap
+                key: db-username
+          - name: MONGO_DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-password
+                key: db-password
+          - name: MONGO_DB_HOSTNAME
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-configmap
+                key: db-hostname
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: springapp
+spec:
+  type: NodePort
+  selector:
+    app: springapp
+  ports:
+  - port: 80
+    targetPort: 8080
+    nodePort: 32000
+
+
+      #######################################3
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: springapp
+# spec:
+#   selector:
+#     matchLabels:
+#       app: springapp
+#   replicas: 2
+#   template:
+#     metadata:
+#       name: springapp
+#       labels:
+#         app: springapp
+#     spec:
+#       containers:
+#         - name: springapp
+#           image: mylandmarktech/spring-boot-mongo
+#           ports:
+#           - containerPort: 8080
+#           env:
+#           - name: MONGO_DB_USERNAME
+#             valueFrom:
+#               configMapKeyRef:
+#                 name: mongo-configmap
+#                 key: db-username
+#           - name: MONGO_DB_PASSWORD
+#             valueFrom:
+#               secretKeyRef:
+#                 name: mongodb-password
+#                 key: db-password
+#           - name: MONGO_DB_HOSTNAME
+#             valueFrom:
+#               configMapKeyRef:
+#                 name: mongo-configmap
+#                 key: db-hostname

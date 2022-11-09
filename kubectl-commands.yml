@@ -1,0 +1,102 @@
+kubectl api-resources
+
+kubectl get namespaces ns
+
+kubectl apply -f <fileName.yml>
+
+kubectl get all 
+
+### pod
+kubectl get pods 
+
+kubectl get pods --show-labels
+
+kubectl get pods - o wide
+kubectl get pods - o wide --show-labels
+kubectl  describe pod <podName>
+kubectl  describe pod <podName> -n <namespace>
+
+### svc
+kubectl get svc 
+kubectl  describe service <serviceName>
+kubectl  describe service <serviceName> -n <namespace>
+kubectl  describe service <serviceName> -o wide
+
+### ns
+ kubectl get all --all-namespaces
+ 
+kubectl get all --all-namespaces
+kubectl get all -n <namespace>
+kubectl get pods -n <namespace>
+kubectl get pods -n <namespace> - o wide
+
+kubectl get svc -n <namespace>
+### rs
+kubectl get rs 
+kubectl get rs -n <namespace>
+kubectl get all
+kubectl scale rs <rsName> --replicas <noOfReplicas>
+
+kubectl describe rs <rsName>
+kubectl delete rs <rsName>
+
+#### ds
+kubectl get ds 
+kubectl get ds -n <namespace>
+kubectl get all
+
+
+kubectl describe ds <dsName>
+kubectl delete ds <dsName>
+		
+
+kubectl get deployment
+kubectl get rs
+kubectl get pods
+kubectl rollout status deployment <deploymentName>
+kubectl rollout history  deployment mavenappdeployment <deploymentName>
+kubectl rollout history  deployment <deploymentName> --revision 1  
+kubectl rollout undo  deployment <deploymentName> --to-revision 1  
+kubectl scale deployment <deploymentName> --replicas <noOfReplicas>
+
+kubectl rollout undo  deployment mydeploy --to-revision 1
+
+### pv
+kubectl get pv
+kubectl get pvc
+kubectl get storageclass
+kubectl describe pvc <pvcName>
+kubectl describe pv <pvName>
+
+### Imagepullsecret
+
+kubectl create secret docker-registry dockerhubcred \
+    --docker-server=docker.io --docker-username=bricelab21 \
+    --docker-password=admin123
+
+#########################################################################################
+
+echo "# kubernetes-manifest-files" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git branch -M main
+git remote add origin git@github.com:Devops-pro-group/kubernetes-manifest-files.git
+git push -u origin main
+
+#########################################################################################
+
+#### To scan image using trivy do 
+
+trivy image bricelab21/alybibaf:1
+
+#### create alias in git 
+git config --global alias.s "status" alias for status
+
+git config --global alias.cm "commit -m"
+
+git config --global alias.co "checkout"
+
+### .gitignore
+create .gitignore and add the file that you don't want git to track
+
